@@ -10,6 +10,7 @@ if os.environ.get("TEST"):
 else:
     db = connection["position"]
 
+
 def insert_to_db(data):
     return str(db.position.insert(data))
 
