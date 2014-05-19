@@ -26,7 +26,7 @@ def get_from_db(data={}, limit=10):
 
 def is_correct_coordinates(lat, lon):
     def check(a):
-        if len(a) <= 10 and "." in a:
+        if len(a) <= 5 and "." in a:
             return True
         else:
             return False
