@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from python_web_tests.main import insert_to_db, is_correct_coordinates, delete_from_db, get_from_db, app
+from main import insert_to_db, is_correct_coordinates, delete_from_db, get_from_db, app
 
 
 class MainTests(unittest.TestCase):
