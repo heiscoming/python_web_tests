@@ -8,7 +8,7 @@ class MainTests(unittest.TestCase):
 
     def setUp(self):
         self.app = app.test_client()
-        self.app.delete("/position") # clean all data
+        self.app.delete("/position")  # clean all data
 
     def test_post(self):
         resp = json.loads(self.app.get("/position").data)
@@ -17,7 +17,7 @@ class MainTests(unittest.TestCase):
                                         data=json.dumps({"lat": "32.23431", "lon": "54.34543"}),
                                         content_type='application/json',
                                         ).data
-        )
+                            )
         id = resp.get("id")
         self.assertEqual(len(id), 24)
 
