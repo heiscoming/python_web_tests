@@ -40,7 +40,8 @@ def delete_from_db(pos_id=""):
             return True
         else:
             return False
-    return db.position.drop()
+    if not db.position.drop():
+        return True
 
 @app.route("/position", methods=["POST", "GET", "DELETE"])
 def position():
@@ -61,17 +62,31 @@ def position():
         data = get_from_db(limit=limit)
         return jsonify(positions=data)
     if request.method == "DELETE":
-        id = request.args.get("id")
-        if id:
-            if delete_from_db(id):
+        _id = request.args.get("id")
+        if _id:
+            if delete_from_db(_id):
                 return jsonify(message="position removed")
         else:
             if delete_from_db():
                 return jsonify(message="database clear")
 
+
 @app.route("/")
 def main():
     return jsonify(main=True)
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    shutdown_server()
+    return jsonify(message='Server shutting down...')
 
 if __name__ == "__main__":
     app.debug = True
