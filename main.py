@@ -82,6 +82,12 @@ def shutdown_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, x-xsrf-token')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+    return response
 
 @app.route('/shutdown', methods=['POST'])
 def shutdown():
